@@ -1,0 +1,146 @@
+@font-face {
+  font-family: "Neucha-Regular";
+  src: url("Neucha-Regular.ttf");
+}
+
+* {
+  background-color: #f4f4f4;
+  font-family: Neucha-Regular;
+  font-size: 14;
+  color: black;
+}
+
+button:hover {
+  transition: all 0.3s ease 0s;
+  background-color: firebrick;
+  color: white;
+  cursor: pointer;
+}
+
+/* Register & Login Page CSS */
+.container-register,
+.container-login {
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  letter-spacing: 1px;
+  font-family: Neucha-Regular;
+  line-height: 20px;
+  text-align: center;
+  font-size: 14;
+  font-weight: 600;
+}
+
+.container-form > .form,
+h1,
+p,
+.form-group,
+.form-group > label {
+  background-color: antiquewhite;
+}
+
+button {
+  font-family: Neucha-Regular;
+  font-size: 14;
+  font-weight: 800;
+}
+
+.container-form {
+  margin: 10px;
+  background-color: antiquewhite;
+  border: 1px solid #cccccc;
+  padding: 5px;
+  box-shadow:10px 10px 20px grey;
+}
+
+.navigation-container > ul {
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation-container > ul > li > a:hover {
+  color: firebrick;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 0.1cm;
+}
+
+.navigation-container > ul > li > a {
+  background-color: antiquewhite;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+  border-radius: 0.1cm;
+  padding: 5px;
+}
+
+.navigation-container > ul > li,
+ul {
+  background-color: #f4f4f4;
+  font-weight: 800;
+  font: bolder;
+  font-size: 18;
+  list-style: none;
+  padding: 0 10%;
+}
+
+
+
+.container-mostouter {
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 1em;
+  width: 50%;
+  height: 50%;
+  font-size: 1em;
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+}
+
+.container-post {
+  border: solid black;
+  border-radius: 10px;
+  background-color: antiquewhite;
+}
+
+.container-post > .container-outer > .container-inner > .postpar > a {
+  background-color: antiquewhite;
+  text-decoration: underline;
+  color: black;
+}
+
+.container-post > .container-outer > .container-inner > .postpar {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.NotFound {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.fzf {
+  border: 5px ridge black;
+  width: min-content;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: antiquewhite;
+}
+
+/*TABLE STUFF*/
+tr, th {
+border: 1px, solid #dddddd;
+padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: aqua;
+}
