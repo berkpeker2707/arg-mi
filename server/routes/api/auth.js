@@ -3,36 +3,33 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const auth = require("../../middleware/auth");
 
 // Bringing Models
 const User = require("../../models/User");
 
 //Routes
-//POST Request api/users
-//Register new Users
+//POST Request api/auth
+//Register Authenticate User
 //access Public 
 router.post("/", (req,res) =>{
-    const {username, email, password} = req.body;
+    const {email, password} = req.body;
 
     //Validation
-    if(!username || !email || !password) {
+    if(!email || !password) {
         return res.status(400).json({msg: "Please enter all fields."});
     }
-
 
     //Check for existing user
     User.findOne({email})
     .then(user => {
-        if(user) {
-            return res.status(400).json({msg: "User already exists"});
+        if(!user) {
+            return res.status(400).json({msg: "Please enter correctly."});
         } else{
-        const newUser = new User({username,email,password});
-        //Create salt & hash
-        bcrypt.genSalt(10, (err, salt) => {bcrypt.hash(password, salt, (err, hash) => {
-            if(err) throw err;
-            newUser.password = hash;
-            newUser.save()
-            .then(user =>{
+            //Validate Password
+            bcrypt.compare(password, user.password)
+            .then(isMatch => {
+                if(!isMatch) return res.status(400).json({msg:"Invalid entry"});
 
                 jwt.sign(
                     {id: user.id },
@@ -50,12 +47,19 @@ router.post("/", (req,res) =>{
                         });
                     }
                 )
-
-                
-            });
-        })})
+            })
+        
     }
     })
 });
+
+//GET Request api/auth/user
+//GET Get user data
+//access Private 
+router.get("/user", auth, (req,res) =>{
+    User.findById(req.user.id)
+    .select("-password")
+    .then(user => res.json(user));
+})
 
 module.exports = router;

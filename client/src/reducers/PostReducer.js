@@ -21,7 +21,7 @@ import {    GET_POSTS, ADD_POSTS, DELETE_POSTS, UPDATE_POSTS, POSTS_LOADING  } f
       case DELETE_POSTS:
         return{
           ...state,
-          posts: state.posts.filter(post => post.id !== action.payload)
+          posts: state.posts.filter(post => post._id !== action.payload)
         }
       case POSTS_LOADING:
         return {

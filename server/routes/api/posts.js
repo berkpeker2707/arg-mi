@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middleware/auth");
 
 // Bringing Models
 const Post = require("../../models/Post");
@@ -16,8 +17,8 @@ router.get("/", (req,res) =>{
 
 //POST Request api/posts
 //Create A Posts
-//access Public 
-router.post("/", (req,res) =>{
+//access Private 
+router.post("/", auth, (req,res) =>{
     const newPost = new Post({
         title: req.body.title,
         text: req.body.text
@@ -29,8 +30,8 @@ router.post("/", (req,res) =>{
 
 //DELETE Request api/posts:id
 //DELETE A Posts
-//access Public 
-router.delete("/:id", (req,res) =>{
+//access Private 
+router.delete("/:id", auth, (req,res) =>{
     Post.findById(req.params.id).then(post => post.remove().then(() => res.json({success: true})))
     .catch(err => res.status(404).json({success: false}));
 });

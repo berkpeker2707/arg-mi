@@ -1,91 +1,105 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {register} from "../actions/authActions";
 import "../App.css";
 
-export default class Register extends Component {
-  constructor(props) {
-    super(props);
+class Register extends Component {
 
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangeName = this.onChangeName.bind(this);
-
-    this.state = {
-      name: "",
+    state = {
       username: "",
       email: "",
-      password: ""
+      password: "",
+      msg:null
+    };
+
+    static propTypes={
+      isAuthenticated: PropTypes.bool,
+      error: PropTypes.object.isRequired,
+      register: PropTypes.func.isRequired
+    };
+
+    componentDidUpdate(previousProps){
+      const {error} = this.props;
+      if(error !== previousProps.error) {
+        //Check for register error
+        if(error.id === "REGISTER_FAIL") {
+          this.setState({msg: error.msg.msg});
+        } else {
+          this.setState({msg: null});
+        }
+      }
     }
 
-  }
+    onChange = e =>{
+      this.setState({ [e.target.name]: e.target.value});
+    };
 
-    onChangeEmail(e) {
-      this.setState({email: e.target.value})
-    }
+    onSubmit = (e) => {
+      e.preventDefault();
 
-    onChangeUsername(e) {
-      this.setState({username: e.target.value})
-    }
+      const { username, email, password} = this.state;
 
-    onChangePassword(e) {
-      this.setState({password: e.target.value})
-    }
+      //Create User Obj
+      const newUser = {
+        username,
+        email,
+        password
+      };
 
-    onChangeName(e) {
-      this.setState({name: e.target.value})
-    }
+      //Attempt Register
+      this.props.register(newUser);
 
-    onSubmit(e){
-      e.preventEvent();
-    
-      console.log(`Student successfully created!`);
-    console.log(`Email: ${this.state.email}`);
-    console.log(`Username: ${this.state.username}`);
-    console.log(`Password: ${this.state.password}`);
-    console.log(`Name: ${this.state.name}`);
+    };
 
-    this.setState({email:"", username:"", password:"", name:""
-
-    })
-
-  }
+  
   
   render() {
     return (
+      <div>
+      {this.state.msg ? (alert(this.state.msg)): null}
       <form onSubmit={this.onSubmit}>
       <div className="container-register">
         <div className="container-form">
           <div className="form">
             <h1>Register</h1>
             <p>Please enter your information before you dive in to discussions.</p>
+
             <div className="form-group">
               <label for="email">Email</label>
               <br/>
-              <input type="text" placeholder="myemail@email.com" name="email" id="email" value={this.state.email} required />
+              <input type="text" placeholder="myemail@email.com" name="email" id="email" onChange={this.onChange} />
             </div>
+
             <div className="form-group">
               <label for="username" >Username</label>
               <br/>
-              <input type="text" placeholder="MyUniqueUsername" name="username" id="username" value={this.state.username} required />
+              <input type="text" placeholder="MyUniqueUsername" name="username" id="username" onChange={this.onChange} />
             </div>
+
             <div className="form-group">
               <label for="Password">Password</label>
               <br/>
-              <input type="password" placeholder="Enter Password" name="psw" id="id" value={this.state.password} required />
+              <input type="password" placeholder="Enter Password" name="password" id="password" onChange={this.onChange} />
             </div>
-            <div className="form-group">
-              <label for="name">Name</label>
-              <br/>
-              <input type="text" placeholder="Enter Your Name" name="name" id="name" value={this.state.name} required />
-            </div>
+
             <div className="form-group">
               <br/>
               <button type="submit">Register Me!</button>
             </div>
+
           </div>
         </div>
       </div>
       </form>
+      </div>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
+});
+
+export default connect(mapStateToProps, {register})(Register);

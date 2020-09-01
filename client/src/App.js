@@ -1,17 +1,24 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
 import Header from "./components/About";
 import Post from "./components/Post";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import NotFound from "./components/NotFound";
-import User from "./components/Users";
 import PostPage from "./components/PostPage";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import PostModal from "./components/PostModal";
+import {loadUser} from "./actions/authActions";
+import Logout from "./components/Logout";
 
-function App() {
+class App extends Component {
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
+
+  render(){
   return (
     <Provider store = {store}>
     <div className="App">
@@ -29,6 +36,9 @@ function App() {
                 <Link to={"/Login"}>Mellon</Link>
               </li>
               <li>
+                <Logout/>
+              </li>
+              <li>
                 <Link to={"/Register"}>Kayıt</Link>
               </li>
             </ul>
@@ -40,6 +50,7 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Post />
+              <PostModal />
             </Route>
             <Route exact path="/PostPage">
               <PostPage />
@@ -53,9 +64,6 @@ function App() {
             <Route path="/Register">
             <Register/>
             </Route>
-            <Route path="/Users">
-            <User/>
-            </Route>
             <Route path="*">
               <NotFound/>
             </Route>
@@ -66,6 +74,7 @@ function App() {
     </Provider>
   );
   
+          }
 }
 
 export default App;

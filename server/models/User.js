@@ -12,9 +12,10 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
-    createdAt: {
+    register_date: {
         type: Date,
         default: Date.now
     }

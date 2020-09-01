@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Fragment } from "react";
 import { Link } from "react-router-dom";
 import { getPosts, deletePost } from "../actions/postActions";
 import { connect } from "react-redux";
@@ -16,29 +16,31 @@ this.props.deletePost(id);
   }
 
   render() {
-    const {posts} = this.props.post;
-    {posts.map(({id,title, text}) =>(
-      <div className="container-mostouter" key={id}>
+    const {posts} = this.props;
+    return(
+      <React.Fragment>
+        if(this.props.posts)
+      {posts.map(({_id, text, title}) => (
+      <div className="container-mostouter" key={_id}>
         <div className="container-post">
           <div className="container-outer">
             <div className="container-inner">
+            
               <h3>{title}</h3>
               <p className="postpar">
                 {text}
                 <br />
-                <Link to="/PostPage">Devamını Oku</Link>
+                <Link to="/PostPage">Read More</Link>
               </p>
             </div>
           </div>
         </div>
-        <button onClick={this.onDeleteClick.bind(this, id)}>Ekle</button>
+        <button onClick={this.onDeleteClick.bind(this, _id)}>Add</button>
       </div>
-      ))};
-    return (
-      <div>
-        <PostModal />
-      </div>
-    );
+      ))}
+            </React.Fragment>
+      );
+      
   }
 }
 
