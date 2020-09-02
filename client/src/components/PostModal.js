@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {addPost} from "../actions/postActions";
+import PropTypes from "prop-types";
 
 class PostModal extends Component {
     state = {
-        modal:false,
         text: "",
         title: ""
-    }
+    };
+
+    static propTypes = {
+        isAuthenticated: PropTypes.bool
+    };
 
 displayAddPost = () => {
     var element = document.getElementById("addToggle");
@@ -19,10 +23,8 @@ displayAddPost = () => {
   }
 
 onChange = (e) => {
-    this.setState({[e.target.text]: e.target.value})
-    this.setState({[e.target.title]: e.target.value})
-
-}
+    this.setState({[e.target.name]: e.target.value});
+};
 
 obSubmit = (e) => {
     e.preventDefault();
@@ -38,19 +40,20 @@ this.displayAddPost();
     render() {
         return (
             <div>
-            <button
+                {this.props.isAuthenticated ? <button
             onClick={this.displayAddPost}
-            >Post Ekleyin</button>
+            >Post Ekleyin</button> : <h4>Lütfen yazmak için yapın.</h4>}
+            
 
             <div id="addToggle" style={{display: "none"}}>
             <form
             onSubmit={this.onSubmit}
             >
                 <h1>Post Ekleyin</h1>
-                <label htmlFor="post">Title</label>
-                <input type="text" name="title" id="title" placeholder="Title yazın" onChange={this.onChange} value={this.state.title}/>
-                <label htmlFor="post">Post</label>
-                <input type="text" name="text" id="post" placeholder="Post yazın" onChange={this.onChange} value={this.state.text}/>
+                <label for="post">Title</label>
+                <input type="text" name="title" id="title" placeholder="Title yazın" onChange={this.onChange}/>
+                <label for="post">Post</label>
+                <input type="text" name="text" id="post" placeholder="Post yazın" onChange={this.onChange}/>
                 <button >Yeni Ekle</button>
             </form>
             </div>
@@ -59,7 +62,9 @@ this.displayAddPost();
     }
 }
 
-const mapStateToProps = state => ({  post: state.post
+const mapStateToProps = state => ({
+    post: state.post,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, {addPost})(PostModal);
