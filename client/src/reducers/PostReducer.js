@@ -1,4 +1,4 @@
-import {    GET_POSTS, ADD_POSTS, DELETE_POSTS, UPDATE_POSTS, POSTS_LOADING  } from "../actions/constants";
+import {    GET_POSTS, ADD_POSTS, DELETE_POSTS, POSTS_LOADING  } from "../actions/constants";
   
   const initialState = {
     posts: [],

@@ -54,48 +54,59 @@ button {
   box-shadow:10px 10px 20px grey;
 }
 
-.navigation-container > ul {
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Register & Login Page CSS Ends */
+
+/* HEADER STARTS */
+
+.navigation-container{
+  text-align: left;
 }
 
-.navigation-container > ul > li > a:hover {
-  color: firebrick;
-  cursor: pointer;
-  background-color: white;
-  border-radius: 0.1cm;
-}
-
-.navigation-container > ul > li > a {
-  background-color: antiquewhite;
+.navLink{
+  color:red;
   text-decoration: none;
-  transition: all 0.3s ease 0s;
-  border-radius: 0.1cm;
-  padding: 5px;
 }
 
-.navigation-container > ul > li,
-ul {
-  background-color: #f4f4f4;
-  font-weight: 800;
-  font: bolder;
-  font-size: 18;
-  list-style: none;
-  padding: 0 10%;
+/* HEADER STARTS */
+
+/* POST MODAL */
+.postModal{
+  padding-top: 20px;
+  text-align: center;
+
+  margin-inline-end: 20rem;
+  margin-inline-start: 20rem;
 }
 
+.postModal > button {
+  padding: 20px 30px;
+}
 
+textarea{
+  height: 10rem;
+  width: 25rem;
+}
+
+#addToggle{
+  border: 1px solid blue;
+  border-radius: 5ch;
+  background-color: #f5c899;
+}
+
+/* POST MODAL ENDS */
+
+/* POST */
 
 .container-mostouter {
   background-color: #f4f4f4;
   border-radius: 10px;
-  display: grid;
-  grid-template-columns: auto;
-  grid-gap: 1em;
-  width: 50%;
-  height: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp:10; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  width: 70%;
+  height: 70%;
   font-size: 1em;
   justify-self: center;
   align-self: center;
@@ -119,6 +130,28 @@ ul {
   padding-right: 5px;
 }
 
+.container-mostouter .text {
+  visibility:hidden;
+  opacity: 0;
+  transition: opacity 1s;
+  }
+  
+  .container-mostouter:hover .text {
+   background-color: aqua!important;
+    position: relative;
+  visibility:visible;
+  opacity: 1;
+  text-align: center;
+  top: 60px;
+  margin:auto;
+  }
+
+  .container-mostouter:hover ~ h1 + p {
+    filter: blur(5px);
+  }
+
+/* POST ENDS */
+
 .NotFound {
   display: flex;
   justify-content: center;
@@ -133,16 +166,6 @@ ul {
   margin-left: auto;
   margin-right: auto;
   background-color: antiquewhite;
-}
-
-/*TABLE STUFF*/
-tr, th {
-border: 1px, solid #dddddd;
-padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: aqua;
 }
 
 .addToggle{

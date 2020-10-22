@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {register} from "../actions/authActions";
+import { Link, Redirect } from "react-router-dom";
 import "../App.css";
 
 class Register extends Component {
@@ -53,8 +54,12 @@ class Register extends Component {
     };
 
   
-  
   render() {
+
+    if(this.props.isAuthenticated){
+      return <Redirect to ="/"/>
+    }
+
     return (
       <div>
       {this.state.msg ? (alert(this.state.msg)): null}
@@ -68,19 +73,19 @@ class Register extends Component {
             <div className="form-group">
               <label for="email">Email</label>
               <br/>
-              <input type="text" placeholder="myemail@email.com" name="email" id="email" onChange={this.onChange} />
+              <input type="text" placeholder="myemail@email.com" name="email" id="email" onChange={this.onChange} required/>
             </div>
 
             <div className="form-group">
               <label for="username" >Username</label>
               <br/>
-              <input type="text" placeholder="MyUniqueUsername" name="username" id="username" onChange={this.onChange} />
+              <input type="text" placeholder="MyUniqueUsername" name="username" id="username" onChange={this.onChange} required/>
             </div>
 
             <div className="form-group">
               <label for="Password">Password</label>
               <br/>
-              <input type="password" placeholder="Enter Password" name="password" id="password" onChange={this.onChange} />
+              <input type="password" placeholder="Enter Password" name="password" id="password" onChange={this.onChange} required/>
             </div>
 
             <div className="form-group">

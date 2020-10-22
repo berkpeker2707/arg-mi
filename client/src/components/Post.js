@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { getPosts, deletePost } from "../actions/postActions";
 import { connect } from "react-redux";
@@ -24,9 +24,11 @@ class Post extends Component {
     const { posts } = this.props.post;
     
     return (
-      <div>
+      <Fragment>
         {posts.map(({ _id, text, title }) => (
+          <Link to="/PostPage">
           <div className="container-mostouter" key={_id}>
+          <p class="text">Tamamını görmek için tıklayınız.</p>         
             <div className="container-post">
               <div className="container-outer">
                 <div className="container-inner">
@@ -34,7 +36,6 @@ class Post extends Component {
                   <p className="postpar">
                     {text}
                     <br />
-                    <Link to="/PostPage">Daha Fazla Oku..</Link>
                   </p>
                   {this.props.isAuthenticated ? <button onClick={this.onDeleteClick.bind(this, _id)}>Sil</button> : null}
                   
@@ -42,8 +43,9 @@ class Post extends Component {
               </div>
             </div>
           </div>
+          </Link>
         ))}
-      </div>
+      </Fragment>
     );
   }
 }

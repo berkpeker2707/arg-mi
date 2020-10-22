@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {login} from "../actions/authActions";
+import { Link, Redirect } from "react-router-dom";
 import "../App.css";
 
 class Login extends Component {
   state = {
       email: "",
       password: "",
-      msg: null
+      msg: null,
+      
     };
 
   static propTypes = {
@@ -45,15 +47,21 @@ class Login extends Component {
     //User attempt
     this.props.login(user);
   };
-  
+
   render() {
+
+  if(this.props.isAuthenticated){
+    return <Redirect to ="/"/>
+  }
+  
+  
     return (
       <div>
         <form onSubmit={this.onSubmit}>
       <div className="container-login">
         <div className="container-form">
           <div className="form">
-          {this.state.msg ? (<p>(this.state.msg)</p>): null}
+          {this.state.msg ? (<p>{this.state.msg}</p>): null}
             <h1>Login</h1>
             <p>Welcome back our dear user!</p>
 
